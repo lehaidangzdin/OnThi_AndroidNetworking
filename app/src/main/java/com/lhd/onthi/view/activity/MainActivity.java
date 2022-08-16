@@ -1,55 +1,67 @@
 package com.lhd.onthi.view.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.lhd.onthi.R;
-import com.lhd.onthi.adapter.TabAdapter;
+import com.lhd.onthi.adapter.AlbumAdapter;
 import com.lhd.onthi.databinding.ActivityMainBinding;
+import com.lhd.onthi.model.Album;
+import com.lhd.onthi.network.ApiService;
+import com.lhd.onthi.network.RetroClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    // TODO: 8/14/2022 databinding: thêm phần sau vào buile.gradle(project) trước rồi thêm tag <layout></layout> bọc file xml thì mới dùng đc databinding
-    //******************
-    //  dataBinding {
-    //        enabled = true
-    //    }
-    //******************
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    // TODO: 8/14/2022 thêm thư viện retrofit
-    //  implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    //  implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+public class MainActivity extends AppCompatActivity {
+
 
     private ActivityMainBinding binding;
-    private TabAdapter tabAdapter;
-    private final List<String> ltTitle = new ArrayList<>();
+    private ApiService apiService;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        tabAdapter = new TabAdapter(getSupportFragmentManager(), getLifecycle());
-        binding.viewpager.setAdapter(tabAdapter);
-        addTitleTabLayout();
-
-        new TabLayoutMediator(binding.tabLayout, binding.viewpager, (tab, position) -> {
-            tab.setText(ltTitle.get(position));
-        }).attach();
+        getAlbum();
     }
 
-    private void addTitleTabLayout() {
-        ltTitle.add("Fragment 1");
-        ltTitle.add("Fragment 2");
+    private void getAlbum() {
+        apiService = RetroClient.getInstance().create(ApiService.class);
+        apiService.getAlbums().enqueue(new Callback<List<Album>>() {
+            @Override
+            public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+                binding.process.setVisibility(View.GONE);
+                displayRCV(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Album>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failure " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void displayRCV(List<Album> response) {
+        AlbumAdapter albumAdapter = new AlbumAdapter(response);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        binding.rcv.setLayoutManager(manager);
+        binding.rcv.setAdapter(albumAdapter);
+
+
     }
 
 
+    public void bai02(View view) {
+    }
 }

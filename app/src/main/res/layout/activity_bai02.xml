@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        tools:context=".view.activity.Bai02Activity">
+
+        <EditText
+            android:id="@+id/maLop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="maLop" />
+
+        <EditText
+            android:id="@+id/tenLop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tenLop" />
+
+        <EditText
+            android:id="@+id/namHoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="nam hoc" />
+
+        <EditText
+            android:id="@+id/kiHoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="kiHoc" />
+
+        <EditText
+            android:id="@+id/maSv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="maSv" />
+
+        <EditText
+            android:id="@+id/tenSv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tenSv" />
+
+        <EditText
+            android:id="@+id/maMon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="maMon" />
+
+        <EditText
+            android:id="@+id/tenMon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tenMon" />
+
+        <EditText
+            android:id="@+id/diem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="diem" />
+
+        <EditText
+            android:id="@+id/soTin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="soTin" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="add"
+            android:onClick="Add"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get"
+            android:onClick="getRow"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bai01"
+            android:onClick="goToBai01"/>
+    </LinearLayout>
+</layout>
